@@ -1,0 +1,50 @@
+CREATE TABLE Books (
+    BookID INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(50) NOT NULL,
+    Author VARCHAR(50) NOT NULL,
+    Genre VARCHAR(50),
+    Price DECIMAL(10, 2) NOT NULL,
+    Stock INT NOT NULL
+);
+INSERT INTO Books (Title, Author, Genre, Price, Stock) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 10.99, 20),
+('1984', 'George Orwell', 'Dystopian', 8.99, 15),
+('Clean Code', 'Robert C. Martin', 'Programming', 39.99, 5);
+CREATE TABLE Customers (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) UNIQUE,
+    Phone VARCHAR(15),
+    Address TEXT
+);
+INSERT INTO Customers (Name, Email, Phone, Address) VALUES
+('Alice Johnson', 'alice@example.com', '123-456-7890', '123 Maple Street'),
+('Bob Smith', 'bob@example.com', '987-654-3210', '456 Oak Avenue'),
+('Charlie Brown', 'charlie@example.com', '555-555-5555', '789 Pine Road');
+CREATE TABLE Orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INT NOT NULL,
+    BookID INT NOT NULL,
+    Quantity INT NOT NULL,
+    OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (BookID) REFERENCES Books(BookID)
+);
+INSERT INTO Orders (CustomerID, BookID, Quantity) VALUES
+(1, 1, 2), -- Alice ordered 2 copies of "The Great Gatsby"
+(2, 3, 1), -- Bob ordered 1 copy of "Clean Code"
+(3, 2, 3); -- Charlie ordered 3 copies of "1984"
+CREATE TABLE Employees (
+    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) UNIQUE,
+    Phone VARCHAR(15),
+    Position VARCHAR(50),
+    Salary DECIMAL(10, 2) NOT NULL,
+    HireDate DATE NOT NULL,
+    Address TEXT
+);
+INSERT INTO Employees (Name, Email, Phone, Position, Salary, HireDate, Address) VALUES
+('John Doe', 'john.doe@example.com', '123-456-7890', 'Manager', 55000.00, '2020-05-01', '123 Elm Street'),
+('Jane Smith', 'jane.smith@example.com', '987-654-3210', 'Cashier', 30000.00, '2021-08-15', '456 Cedar Lane'),
+('Emily Davis', 'emily.davis@example.com', '555-555-5555', 'Inventory Specialist', 40000.00, '2019-03-20', '789 Birch Road');
